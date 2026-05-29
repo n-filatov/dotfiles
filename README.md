@@ -14,9 +14,6 @@ tmux/
         set_state.sh                 # Called by agent hooks/extensions
         update_window.sh             # Updates window name icon suffix
         reset.sh                     # Clears plugin state and suffixes
-pi/
-  extensions/
-    tmux-ai-status.ts                # Pi integration for tmux-ai-status
 ```
 
 ## tmux-ai-status
@@ -29,7 +26,7 @@ States: `thinking` → `🤔`, `working` → `👨‍💻`, `needs_approval` →
 
 1. Copy `tmux/plugins/tmux-ai-status` to `~/.tmux/plugins/`
 2. Copy `tmux/.tmux.conf` to `~/.tmux.conf` (or source it)
-3. For Pi, copy `pi/extensions/tmux-ai-status.ts` to `~/.pi/agent/extensions/` and run `/reload`
+3. For Pi integration, install [`n-filatov/pi-workflow-extensions`](https://github.com/n-filatov/pi-workflow-extensions)
 4. Optionally add hooks to `~/.claude/settings.json`:
 
 ```json
