@@ -5,6 +5,7 @@ Personal dotfiles.
 ## Structure
 
 ```
+nvim/                                # Neovim config, symlink to ~/.config/nvim
 tmux/
   .tmux.conf                         # tmux config
   plugins/
@@ -14,6 +15,30 @@ tmux/
         set_state.sh                 # Called by agent hooks/extensions
         update_window.sh             # Updates window name icon suffix
         reset.sh                     # Clears plugin state and suffixes
+```
+
+## Neovim
+
+`~/.config/nvim` is a symlink to `~/dotfiles/nvim`.
+
+### Sync workflow
+
+After changing Neovim config, commit and push from the dotfiles repo:
+
+```sh
+cd ~/dotfiles
+git status
+git add nvim
+git commit -m "Update nvim config"
+git push
+```
+
+On a new machine, clone dotfiles and link Neovim config:
+
+```sh
+git clone git@github.com:n-filatov/dotfiles.git ~/dotfiles
+mkdir -p ~/.config
+ln -sfn ~/dotfiles/nvim ~/.config/nvim
 ```
 
 ## tmux-ai-status
