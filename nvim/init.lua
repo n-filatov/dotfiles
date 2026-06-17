@@ -220,6 +220,13 @@ do
 
   vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
+  -- Open file tree on the left at the current file's directory
+  vim.keymap.set('n', '<leader>e', function()
+    local dir = vim.fn.expand '%:p:h'
+    if dir == '' then dir = vim.fn.getcwd() end
+    vim.cmd('Lexplore ' .. vim.fn.fnameescape(dir))
+  end, { desc = 'Open file [E]xplorer at current file directory' })
+
   -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
   -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
   -- is not what someone will guess without a bit more experience.
