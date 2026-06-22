@@ -17,6 +17,40 @@ tmux/
         reset.sh                     # Clears plugin state and suffixes
 ```
 
+## Install
+
+Install or update the dotfiles in one command:
+
+```sh
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/n-filatov/dotfiles/master/install.sh)"
+```
+
+The installer:
+
+- clones or updates this repo at `~/dotfiles`
+- creates symlinks for:
+  - `~/.config/nvim -> ~/dotfiles/nvim`
+  - `~/.tmux.conf -> ~/dotfiles/tmux/.tmux.conf`
+  - `~/.tmux/plugins/tmux-ai-status -> ~/dotfiles/tmux/plugins/tmux-ai-status`
+  - `~/.vimrc -> ~/dotfiles/.vimrc`
+- backs up existing non-symlink files/directories to `~/.dotfiles-backup/<timestamp>/...`
+- replaces stale symlinks that point somewhere else
+
+Environment variables:
+
+```sh
+DOTFILES_DIR=~/src/dotfiles bash install.sh          # custom checkout location
+DOTFILES_BACKUP_DIR=~/dotfiles-backups bash install.sh
+DOTFILES_REPO_URL=https://github.com/n-filatov/dotfiles.git bash install.sh
+```
+
+If you already cloned the repo:
+
+```sh
+cd ~/dotfiles
+./install.sh
+```
+
 ## Neovim
 
 `~/.config/nvim` is a symlink to `~/dotfiles/nvim`.
@@ -33,13 +67,7 @@ git commit -m "Update nvim config"
 git push
 ```
 
-On a new machine, clone dotfiles and link Neovim config:
-
-```sh
-git clone git@github.com:n-filatov/dotfiles.git ~/dotfiles
-mkdir -p ~/.config
-ln -sfn ~/dotfiles/nvim ~/.config/nvim
-```
+On a new machine, use the installer above to clone dotfiles and create symlinks.
 
 ## tmux-ai-status
 
@@ -49,10 +77,9 @@ States: `thinking` → `🤔`, `working` → `👨‍💻`, `needs_approval` →
 
 ### Setup
 
-1. Copy `tmux/plugins/tmux-ai-status` to `~/.tmux/plugins/`
-2. Copy `tmux/.tmux.conf` to `~/.tmux.conf` (or source it)
-3. For Pi integration, install [`n-filatov/pi-workflow-extensions`](https://github.com/n-filatov/pi-workflow-extensions)
-4. Optionally add hooks to `~/.claude/settings.json`:
+1. Run `./install.sh` to symlink `tmux/.tmux.conf` and `tmux/plugins/tmux-ai-status` into your home directory.
+2. For Pi integration, install [`n-filatov/pi-workflow-extensions`](https://github.com/n-filatov/pi-workflow-extensions).
+3. Optionally add hooks to `~/.claude/settings.json`:
 
 ```json
 "hooks": {
@@ -61,7 +88,7 @@ States: `thinking` → `🤔`, `working` → `👨‍💻`, `needs_approval` →
 }
 ```
 
-5. Optionally add hooks to `~/.codex/hooks.json` (requires `features.codex_hooks = true` in `~/.codex/config.toml`):
+4. Optionally add hooks to `~/.codex/hooks.json` (requires `features.codex_hooks = true` in `~/.codex/config.toml`):
 
 ```json
 {
